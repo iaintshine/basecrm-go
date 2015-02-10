@@ -15,7 +15,7 @@ import (
 
 const (
 	libraryVersion = "0.1.0"
-	defaultBaseURL = "https://api.getbase.com/"
+	defaultBaseURL = "https://api.getbase.com"
 	userAgent      = "basecrm-go/" + libraryVersion
 
 	defaultMediaType = "application/json"
@@ -147,7 +147,10 @@ func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)
 		} else {
-			json.NewDecoder(resp.Body).Decode(v)
+			err = json.NewDecoder(resp.Body).Decode(v)
+			if err != nil {
+				return response, err
+			}
 		}
 	}
 
