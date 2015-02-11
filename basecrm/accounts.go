@@ -7,8 +7,8 @@ import (
 type Account struct {
 	Id         int       `json:"id"`
 	Name       string    `json:"name"`
-	Role       string    `json:"role"`
-	Plan       string    `json:"plan"`
+	Role       string    `json:"role,omitempty"`
+	Plan       string    `json:"plan,omitempty"`
 	Currency   string    `json:"currency"`
 	TimeFormat string    `json:"time_format"`
 	Timezone   string    `json:"timezone"`

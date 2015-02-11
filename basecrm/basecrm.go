@@ -39,6 +39,24 @@ type Client struct {
 	Contacts ContactsService
 }
 
+// ListOptions specifies the optional parameters to various List methods that
+// support pagination.
+type ListOptions struct {
+	// For paginated result sets, page of results to retrieve.
+	Page int `url:"page,omitempty"`
+
+	// For paginated result sets, the number of results to include per page.
+	PerPage int `url:"per_page,omitempty"`
+
+	// A comma-separated list of IDs to be returned in the request.
+	// TODO: implement marshaller
+	Ids []int `url:"ids,omitempty"`
+
+	// A comma-separated list of fields to sort by.
+	// TODO: implement marshaller
+	SortBy []string `url:"sort_by,omitempty"`
+}
+
 // NewClient returns a new instance of the Base API v2 client.
 // If no client is provided, default http client is used instead.
 //
