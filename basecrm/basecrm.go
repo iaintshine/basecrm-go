@@ -49,12 +49,10 @@ type ListOptions struct {
 	PerPage int `url:"per_page,omitempty"`
 
 	// A comma-separated list of IDs to be returned in the request.
-	// TODO: implement marshaller
-	Ids []int `url:"ids,omitempty"`
+	Ids []int `url:"ids,comma,omitempty"`
 
 	// A comma-separated list of fields to sort by.
-	// TODO: implement marshaller
-	SortBy []string `url:"sort_by,omitempty"`
+	SortBy []string `url:"sort_by,comma,omitempty"`
 }
 
 // NewClient returns a new instance of the Base API v2 client.

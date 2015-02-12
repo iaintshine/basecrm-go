@@ -20,7 +20,20 @@ func (s *UsersSuite) TestUsersService_List_All(c *C) {
 	defer teardown()
 
 	mux.HandleFunc("/v2/users", func(w http.ResponseWriter, req *http.Request) {
-		c.Assert(req.Method, Equals, "GET")
+		expected := map[string]string{
+			"name":      "John Doe",
+			"email":     "john.doe@salesteam.com",
+			"role":      "admin",
+			"status":    "active",
+			"confirmed": "true",
+			"page":      "1",
+			"per_page":  "25",
+			"ids":       "1,2,3",
+			"sort_by":   "name:desc,created_at:asc",
+		}
+		c.Assert(req, HasHttpMethod, "GET")
+		c.Assert(req, HasHttpHeader, "Accept", "application/json")
+		c.Assert(req, HasQueryParams, expected)
 
 		w.Header().Add("Content-Type", "application/json")
 
@@ -67,7 +80,20 @@ func (s *UsersSuite) TestUsersService_List_All(c *C) {
 		fmt.Fprintf(w, jsonBlob)
 	})
 
-	users, res, err := client.Users.List(nil)
+	opt := &UserListOptions{
+		"John Doe",
+		"john.doe@salesteam.com",
+		"admin",
+		"active",
+		true,
+		ListOptions{
+			Page:    1,
+			PerPage: 25,
+			Ids:     []int{1, 2, 3},
+			SortBy:  []string{"name:desc", "created_at:asc"},
+		},
+	}
+	users, res, err := client.Users.List(opt)
 	c.Assert(err, IsNil)
 	c.Assert(res, NotNil)
 	c.Assert(users, NotNil)
