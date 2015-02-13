@@ -6,14 +6,14 @@ import (
 )
 
 type User struct {
-	Id        int       `json:"id"`
-	Name      string    `json:"name"`
-	Email     string    `json:"email"`
-	Status    string    `json:"status"` // what status value can have ?
-	Role      string    `json:"role"`   // what roles are available ?
-	Confirmed bool      `json:"confirmed"`
-	UpdatedAt time.Time `json:"updated_at"`
-	CreatedAt time.Time `json:"created_at"`
+	Id        int       `json:"id,omitempty"`
+	Name      string    `json:"name,omitempty"`
+	Email     string    `json:"email,omitempty"`
+	Status    string    `json:"status,omitempty"` // what status value can have ?
+	Role      string    `json:"role,omitempty"`   // what roles are available ?
+	Confirmed bool      `json:"confirmed,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	CreatedAt time.Time `json:"created_at,omitempty"`
 }
 
 type UserListOptions struct {

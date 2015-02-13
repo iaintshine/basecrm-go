@@ -5,16 +5,16 @@ import (
 )
 
 type Account struct {
-	Id         int       `json:"id"`
-	Name       string    `json:"name"`
+	Id         int       `json:"id,omitempty"`
+	Name       string    `json:"name,omitempty"`
 	Role       string    `json:"role,omitempty"`
 	Plan       string    `json:"plan,omitempty"`
-	Currency   string    `json:"currency"`
-	TimeFormat string    `json:"time_format"`
-	Timezone   string    `json:"timezone"`
-	Phone      string    `json:"phone"`
-	UpdatedAt  time.Time `json:"updated_at"`
-	CreatedAt  time.Time `json:"created_at"`
+	Currency   string    `json:"currency,omitempty"`
+	TimeFormat string    `json:"time_format,omitempty"`
+	Timezone   string    `json:"timezone,omitempty"`
+	Phone      string    `json:"phone,omitempty"`
+	UpdatedAt  time.Time `json:"updated_at,omitempty"`
+	CreatedAt  time.Time `json:"created_at,omitempty"`
 }
 
 type AccountsService interface {
