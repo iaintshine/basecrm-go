@@ -116,9 +116,8 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Requ
 
 	u := c.BaseURL.ResolveReference(rel)
 
-	var buf io.ReadWriter
+	buf := new(bytes.Buffer)
 	if body != nil {
-		buf := new(bytes.Buffer)
 		err := json.NewEncoder(buf).Encode(body)
 		if err != nil {
 			return nil, err
