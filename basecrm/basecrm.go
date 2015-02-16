@@ -34,10 +34,11 @@ type Client struct {
 	UserAgent string
 
 	// Services used to communicating with the API.
-	Accounts AccountsService
-	Users    UsersService
-	Contacts ContactsService
-	Sources  SourcesService
+	Accounts    AccountsService
+	Users       UsersService
+	Contacts    ContactsService
+	Sources     SourcesService
+	LossReasons LossReasonsService
 }
 
 // ListOptions specifies the optional parameters to various List methods that
@@ -79,6 +80,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Users = NewUsersService(c)
 	c.Contacts = NewContactsService(c)
 	c.Sources = NewSourcesService(c)
+	c.LossReasons = NewLossReasonsService(c)
 
 	return c
 }
