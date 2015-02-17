@@ -53,16 +53,6 @@ type LeadListOptions struct {
 	ListOptions
 }
 
-type LeadConversionOptions struct {
-	Includes       []string
-	DealName       string
-	TaskContent    string
-	TaskDueDate    time.Time
-	OrganizationId int
-	OwnerId        int
-	Strict         bool
-}
-
 type LeadsService interface {
 	List(opt *LeadListOptions) ([]*Lead, *Response, error)
 	Get(id int) (*Lead, *Response, error)
