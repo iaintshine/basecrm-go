@@ -247,3 +247,39 @@ func (s *DealsSuite) TestDealsService_Delete(c *C) {
 	c.Assert(res, NotNil)
 	c.Assert(deleted, Equals, true)
 }
+
+func (s *DealsSuite) TestDealsService_UpsertContact(c *C) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v2/deals/1/associated_contacts/1", func(w http.ResponseWriter, req *http.Request) {
+		expected := map[string]string{
+			"role": "primary",
+		}
+		c.Assert(req, HasHttpMethod, "PUT")
+		c.Assert(req, HasQueryParams, expected)
+
+		w.WriteHeader(http.StatusNoContent)
+	})
+
+	upserted, res, err := client.Deals.UpsertContact(1, &AssociatedContact{ContactId: 1, Role: "primary"})
+	c.Assert(err, IsNil)
+	c.Assert(res, NotNil)
+	c.Assert(upserted, Equals, true)
+}
+
+func (s *DealsSuite) TestDealsService_DeleteContact(c *C) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v2/deals/1/associated_contacts/1", func(w http.ResponseWriter, req *http.Request) {
+		c.Assert(req, HasHttpMethod, "DELETE")
+
+		w.WriteHeader(http.StatusNoContent)
+	})
+
+	deleted, res, err := client.Deals.DeleteContact(1, 1)
+	c.Assert(err, IsNil)
+	c.Assert(res, NotNil)
+	c.Assert(deleted, Equals, true)
+}
