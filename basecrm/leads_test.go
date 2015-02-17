@@ -22,18 +22,21 @@ func (s *LeadsSuite) TestLeadsService_List_All(c *C) {
 
 	mux.HandleFunc("/v2/leads", func(w http.ResponseWriter, req *http.Request) {
 		expected := map[string]string{
-			"q":                 "john",
-			"letter":            "J",
-			"creator_id":        "1",
-			"owner_id":          "1",
-			"first_name":        "john",
-			"last_name":         "doe",
-			"organization_name": "Design Services Company",
-			"status":            "new",
-			"page":              "1",
-			"per_page":          "25",
-			"ids":               "1,2,3",
-			"sort_by":           "name:desc,created_at:asc",
+			"q":                    "john",
+			"letter":               "J",
+			"creator_id":           "1",
+			"owner_id":             "1",
+			"first_name":           "john",
+			"last_name":            "doe",
+			"organization_name":    "Design Services Company",
+			"status":               "new",
+			"address[city]":        "Hyannis",
+			"address[postal_code]": "02601",
+			"address[country]":     "US",
+			"page":                 "1",
+			"per_page":             "25",
+			"ids":                  "1,2,3",
+			"sort_by":              "name:desc,created_at:asc",
 		}
 		c.Assert(req, HasHttpMethod, "GET")
 		c.Assert(req, HasHttpHeader, "Accept", "application/json")
@@ -79,6 +82,9 @@ func (s *LeadsSuite) TestLeadsService_List_All(c *C) {
 		"doe",
 		"Design Services Company",
 		"new",
+		"Hyannis",
+		"02601",
+		"US",
 		ListOptions{
 			Page:    1,
 			PerPage: 25,

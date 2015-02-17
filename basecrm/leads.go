@@ -46,7 +46,9 @@ type LeadListOptions struct {
 
 	Status string `url:"status,omitempty"`
 
-	// TODO: filter by address
+	City       string `url:"address[city],omitempty"`
+	PostalCode string `url:"address[postal_code],omitempty"`
+	Country    string `url:"address[country],omitempty"`
 
 	ListOptions
 }
@@ -61,16 +63,12 @@ type LeadConversionOptions struct {
 	Strict         bool
 }
 
-type ConversionLog struct {
-}
-
 type LeadsService interface {
 	List(opt *LeadListOptions) ([]*Lead, *Response, error)
 	Get(id int) (*Lead, *Response, error)
 	Create(lead *Lead) (*Lead, *Response, error)
 	Edit(id int, lead *Lead) (*Lead, *Response, error)
 	Delete(id int) (bool, *Response, error)
-	Convert(id int, opt *LeadConversionOptions) (*ConversionLog, *Response, error)
 }
 
 func NewLeadsService(client *Client) LeadsService {
@@ -184,8 +182,4 @@ func (s *LeadsServiceOp) Delete(id int) (bool, *Response, error) {
 	}
 
 	return res.StatusCode == http.StatusNoContent, res, err
-}
-
-func (s *LeadsServiceOp) Convert(id int, opt *LeadConversionOptions) (*ConversionLog, *Response, error) {
-	return nil, nil, nil
 }

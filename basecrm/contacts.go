@@ -52,6 +52,10 @@ type ContactListOptions struct {
 	CustomerStatus string `url:"customer_status,omitempty"`
 	ProspectStatus string `url:"prospect_status,omitempty"`
 
+	City       string `url:"address[city],omitempty"`
+	PostalCode string `url:"address[postal_code],omitempty"`
+	Country    string `url:"address[country],omitempty"`
+
 	ListOptions
 }
 
