@@ -21,6 +21,14 @@ const (
 	defaultMediaType = "application/json"
 )
 
+type ResourceType string
+
+const (
+	LeadResource    ResourceType = "lead"
+	ContactResource ResourceType = "contact"
+	DealResource    ResourceType = "deal"
+)
+
 // A client manages communication with the API
 type Client struct {
 	// HTTP client to communicate with the API
@@ -42,6 +50,7 @@ type Client struct {
 	Leads       LeadsService
 	Deals       DealsService
 	Notes       NotesService
+	Tasks       TasksService
 }
 
 // ListOptions specifies the optional parameters to various List methods that
@@ -87,6 +96,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Leads = NewLeadsService(c)
 	c.Deals = NewDealsService(c)
 	c.Notes = NewNotesService(c)
+	c.Tasks = NewTasksService(c)
 
 	return c
 }

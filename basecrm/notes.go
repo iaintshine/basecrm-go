@@ -6,14 +6,6 @@ import (
 	"time"
 )
 
-type ResourceType string
-
-const (
-	LeadResource    ResourceType = "lead"
-	ContactResource ResourceType = "contact"
-	DealResource    ResourceType = "deal"
-)
-
 type Note struct {
 	Id           int          `json:"id,omitempty"`
 	CreatorId    int          `json:"creator_id,omitempty"`
