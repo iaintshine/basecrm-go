@@ -41,6 +41,7 @@ type Client struct {
 	LossReasons LossReasonsService
 	Leads       LeadsService
 	Deals       DealsService
+	Notes       NotesService
 }
 
 // ListOptions specifies the optional parameters to various List methods that
@@ -85,6 +86,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.LossReasons = NewLossReasonsService(c)
 	c.Leads = NewLeadsService(c)
 	c.Deals = NewDealsService(c)
+	c.Notes = NewNotesService(c)
 
 	return c
 }
