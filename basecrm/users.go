@@ -16,6 +16,10 @@ type User struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 }
 
+func (u *User) String() string {
+	return Stringify(u)
+}
+
 type UserListOptions struct {
 	Name      string `url:"name,omitempty"`
 	Email     string `url:"email,omitempty"`

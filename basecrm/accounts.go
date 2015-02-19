@@ -17,6 +17,10 @@ type Account struct {
 	CreatedAt  time.Time `json:"created_at,omitempty"`
 }
 
+func (a *Account) String() string {
+	return Stringify(a)
+}
+
 type AccountsService interface {
 	Self() (*Account, *Response, error)
 }

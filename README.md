@@ -18,6 +18,31 @@ client := basecrm.NewClient(httpClient)
 
 Now use the exposed services to access different parts of the BaseCRM API.
 
+## Authentication
+
+The basecrm-go library does not handle authentication. Instead, you pass an instance of `http.Client`
+that is able to handle authentication to resource servers using Bearer authentication schema.
+The recommended way to do this is to use [goauth2](https://code.google.com/p/goauth2/), newer 
+[golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2) or any other library that can provide
+an instance of `http.Client`. The easiest way to interact with BaseCRM is to use Personal Access Tokens
+(PATs), which can be generated in the Accounts Settings page.
+
+Assuming you have set `BASECRM_TOKEN` environment variable to a Personal Access Token.
+
+```go
+t := oauth.Transport{
+  Token: &oauth.Token{
+    AccessToken: os.Getenv("BASECRM_TOKEN"),
+  },
+}
+
+client := basecrm.NewClient(t.Client())
+
+me, _, _ := client.Users.Self()
+```
+
+Full running examples can be found under [examples](https://github.com/iaintshine/basecrm-go/tree/master/examples/) directory.    
+
 ## Examples
 
 To create a new Contact:
